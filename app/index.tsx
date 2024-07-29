@@ -11,7 +11,8 @@ export default function Index() {
       }}
     >
       <Text style={{ fontSize: 24, color: colors.primary }}>Hello World</Text>
-      <Link href={"/profile"}>Go To Profile</Link>
+      <Link href="/auth/signUp">Sign Up</Link>
+      <Link href="/home/">Welcome</Link>
     </View>
   );
 }
