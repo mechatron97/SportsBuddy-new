@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { TextInput, Button, View } from 'react-native'
+import { TextInput, Button, View, Text } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
-import { useRouter } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import Google from '@/components/Google'
+import Facebook from '@/components/Facebook'
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -74,7 +75,9 @@ export default function SignUpScreen() {
             onChangeText={(password) => setPassword(password)}
           />
           <Button title="Sign Up" onPress={onSignUpPress} />
+          <Text>Have an account?<Link href='/signIn'>Sign In</Link></Text>
           <Google />
+          <Facebook />
         </>
       )}
       {pendingVerification && (

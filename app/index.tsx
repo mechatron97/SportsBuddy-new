@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { colors } from "@/theme/colors";
+import { Colors } from "@/constants/Colors";
 import { Link } from "expo-router";
 export default function Index() {
   return (
@@ -10,9 +10,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text style={{ fontSize: 24, color: colors.primary }}>Hello World</Text>
-      <Link href="/auth/signUp">Sign Up</Link>
-      <Link href="/home/">Welcome</Link>
+      <Text style={{ fontSize: 24, color: Colors.primary }}>Welcome</Text>
+      <Link href="/auth">Continue</Link>
     </View>
   );
 }

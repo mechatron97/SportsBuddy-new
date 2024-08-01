@@ -2,8 +2,10 @@ import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Text, TextInput, Button, View } from 'react-native'
 import React from 'react'
+import Google from '@/components/Google'
+import Facebook from '@/components/Facebook'
 
-export default function Page() {
+export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
 
@@ -50,10 +52,9 @@ export default function Page() {
       />
       <Button title="Sign In" onPress={onSignInPress} />
       <View>
-        <Text>Don't have an account?</Text>
-        <Link href="/signUp">
-          <Text>Sign up</Text>
-        </Link>
+        <Text>Don't have an account?<Link href='./signUp'>Sign Up</Link></Text>
+        <Google />
+        <Facebook />
       </View>
     </View>
   )
