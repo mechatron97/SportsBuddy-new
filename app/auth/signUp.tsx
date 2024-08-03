@@ -75,7 +75,7 @@ export default function SignUpScreen() {
             onChangeText={(password) => setPassword(password)}
           />
           <Button title="Sign Up" onPress={onSignUpPress} />
-          <Text>Have an account?<Link href='/signIn'>Sign In</Link></Text>
+          <Text>Have an account?<Link href={{ pathname: '/signIn' }}>Sign In</Link></Text>
           <Google />
           <Facebook />
         </>
