@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { Link } from "expo-router";
 export default function Index() {
@@ -12,6 +12,8 @@ export default function Index() {
     >
       <Text style={{ fontSize: 24, color: Colors.primary }}>Welcome</Text>
       <Link href="/auth">Continue</Link>
+      <Link href="/onboarding">Onboarding</Link>
+      
     </View>
   );
 }
