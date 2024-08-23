@@ -1,6 +1,8 @@
 import { Button, Text, View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { Link } from "expo-router";
+import Onboarding from "./onboarding";
+
 export default function Index() {
   return (
     <View
@@ -10,9 +12,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text style={{ fontSize: 24, color: Colors.primary }}>Welcome</Text>
-      <Link href="/auth">Continue</Link>
-      <Link href="/onboarding">Onboarding</Link>
+      
+      <Onboarding />
       
     </View>
   );

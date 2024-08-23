@@ -1,91 +1,116 @@
-import * as React from 'react'
-import { TextInput, Button, View, Text } from 'react-native'
-import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import Google from '@/components/Google'
-import Facebook from '@/components/Facebook'
+import React from 'react';
+import { TextInput, Button, View, Text, StyleSheet } from 'react-native';
+import { useSignUp } from '@clerk/clerk-expo';
+import { Link, useRouter } from 'expo-router';
+import Google from '@/components/Google';
+import Facebook from '@/components/Facebook';
 
 export default function SignUpScreen() {
-  const { isLoaded, signUp, setActive } = useSignUp()
-  const router = useRouter()
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const router = useRouter();
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [pendingVerification, setPendingVerification] = React.useState(false)
-  const [code, setCode] = React.useState('')
+  const [emailAddress, setEmailAddress] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [pendingVerification, setPendingVerification] = React.useState(false);
+  const [code, setCode] = React.useState('');
 
   const onSignUpPress = async () => {
     if (!isLoaded) {
-      return
+      return;
     }
 
     try {
       await signUp.create({
         emailAddress,
         password,
-      })
+      });
 
-      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
 
-      setPendingVerification(true)
-    } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2))
+      setPendingVerification(true);
+    } catch (err) {
+      // Handle sign-up errors
+      console.error(JSON.stringify(err, null, 2));
     }
-  }
+  };
 
   const onPressVerify = async () => {
     if (!isLoaded) {
-      return
+      return;
     }
 
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
-      })
+      });
 
       if (completeSignUp.status === 'complete') {
-        await setActive({ session: completeSignUp.createdSessionId })
-        router.replace('/')
+        await setActive({ session: completeSignUp.createdSessionId });
+        router.replace('/');
       } else {
-        console.error(JSON.stringify(completeSignUp, null, 2))
+        console.error(JSON.stringify(completeSignUp, null, 2));
       }
-    } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2))
+    } catch (err) {
+      // Handle verification errors
+      console.error(JSON.stringify(err, null, 2));
     }
-  }
+  };
 
   return (
-    <View>
-      {!pendingVerification && (
+    <View style={styles.container}>
+      {!pendingVerification ? (
         <>
           <TextInput
             autoCapitalize="none"
             value={emailAddress}
             placeholder="Email..."
-            onChangeText={(email) => setEmailAddress(email)}
+            onChangeText={setEmailAddress}
+            style={styles.input}
           />
           <TextInput
             value={password}
             placeholder="Password..."
             secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
+            onChangeText={setPassword}
+            style={styles.input}
           />
           <Button title="Sign Up" onPress={onSignUpPress} />
-          <Text>Have an account?<Link href={{ pathname: '/signIn' }}>Sign In</Link></Text>
+          <Text style={styles.text}>
+            Have an account? <Link href="/auth/signIn">Sign In</Link>
+          </Text>
           <Google />
           <Facebook />
         </>
-      )}
-      {pendingVerification && (
+      ) : (
         <>
-          <TextInput value={code} placeholder="Code..." onChangeText={(code) => setCode(code)} />
+          <TextInput
+            value={code}
+            placeholder="Code..."
+            onChangeText={setCode}
+            style={styles.input}
+          />
           <Button title="Verify Email" onPress={onPressVerify} />
         </>
       )}
     </View>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  text: {
+    marginTop: 20,
+    textAlign: 'center',
+  },
+});
