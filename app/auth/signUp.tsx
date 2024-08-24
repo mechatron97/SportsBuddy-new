@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextInput, Button, View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Input, Button as KittenButton, Text as KittenText, Layout } from '@ui-kitten/components';
 import { useSignUp } from '@clerk/clerk-expo';
 import { Link, useRouter } from 'expo-router';
 import Google from '@/components/Google';
@@ -29,7 +30,6 @@ export default function SignUpScreen() {
 
       setPendingVerification(true);
     } catch (err) {
-      // Handle sign-up errors
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -51,48 +51,51 @@ export default function SignUpScreen() {
         console.error(JSON.stringify(completeSignUp, null, 2));
       }
     } catch (err) {
-      // Handle verification errors
       console.error(JSON.stringify(err, null, 2));
     }
   };
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       {!pendingVerification ? (
         <>
-          <TextInput
+          <Input
             autoCapitalize="none"
             value={emailAddress}
             placeholder="Email..."
             onChangeText={setEmailAddress}
             style={styles.input}
           />
-          <TextInput
+          <Input
             value={password}
             placeholder="Password..."
             secureTextEntry={true}
             onChangeText={setPassword}
             style={styles.input}
           />
-          <Button title="Sign Up" onPress={onSignUpPress} />
-          <Text style={styles.text}>
+          <KittenButton onPress={onSignUpPress} style={styles.button}>
+            Sign Up
+          </KittenButton>
+          <KittenText style={styles.text}>
             Have an account? <Link href="/auth/signIn">Sign In</Link>
-          </Text>
+          </KittenText>
           <Google />
           <Facebook />
         </>
       ) : (
         <>
-          <TextInput
+          <Input
             value={code}
             placeholder="Code..."
             onChangeText={setCode}
             style={styles.input}
           />
-          <Button title="Verify Email" onPress={onPressVerify} />
+          <KittenButton onPress={onPressVerify} style={styles.button}>
+            Verify Email
+          </KittenButton>
         </>
       )}
-    </View>
+    </Layout>
   );
 }
 
@@ -103,11 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
     marginBottom: 10,
-    paddingHorizontal: 10,
+  },
+  button: {
+    marginTop: 10,
   },
   text: {
     marginTop: 20,

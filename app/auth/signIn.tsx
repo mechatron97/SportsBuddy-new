@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TextInput, Button, View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Input, Button as KittenButton, Text as KittenText, Layout } from '@ui-kitten/components';
 import { useSignIn } from '@clerk/clerk-expo';
 import { Link, useRouter } from 'expo-router';
 import Google from '@/components/Google';
@@ -37,28 +38,32 @@ export default function SignInScreen() {
   }, [isLoaded, emailAddress, password, router, signIn, setActive]);
 
   return (
-    <View style={styles.container}>
-      <TextInput
+    <Layout style={styles.container}>
+      <Input
         autoCapitalize="none"
         value={emailAddress}
         placeholder="Email..."
         onChangeText={(text) => setEmailAddress(text)}
         style={styles.input}
       />
-      <TextInput
+      <Input
         value={password}
         placeholder="Password..."
         secureTextEntry={true}
         onChangeText={(text) => setPassword(text)}
         style={styles.input}
       />
-      <Button title="Sign In" onPress={onSignInPress} />
+      <KittenButton onPress={onSignInPress} style={styles.button}>
+        Sign In
+      </KittenButton>
       <View style={styles.footer}>
-        <Text>Don't have an account? <Link href="/auth/signUp">Sign Up</Link></Text>
+        <KittenText>
+          Don't have an account? <Link href="/auth/signUp">Sign Up</Link>
+        </KittenText>
         <Google />
         <Facebook />
       </View>
-    </View>
+    </Layout>
   );
 }
 
@@ -69,11 +74,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
     marginBottom: 10,
-    paddingHorizontal: 10,
+  },
+  button: {
+    marginTop: 10,
   },
   footer: {
     marginTop: 20,

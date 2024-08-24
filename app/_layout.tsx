@@ -1,6 +1,9 @@
 import * as SecureStore from 'expo-secure-store'
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { Stack } from 'expo-router'
+import { ApplicationProvider, Layout, IconRegistry } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const tokenCache = {
   async getToken(key: string) {
@@ -39,9 +42,12 @@ const RootLayoutNav = () => {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
         </Stack>
+        </ApplicationProvider>
       </ClerkLoaded>
     </ClerkProvider>
   )

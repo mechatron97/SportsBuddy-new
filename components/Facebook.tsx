@@ -1,8 +1,9 @@
 import React from 'react'
 import * as WebBrowser from 'expo-web-browser'
-import { View, Button } from 'react-native'
+import { View, Button, StyleSheet } from 'react-native'
 import { useOAuth } from '@clerk/clerk-expo'
-import * as Linking from 'expo-linking'
+import * as Linking from 'expo-linking';
+import { Layout, Button as KittenButton } from '@ui-kitten/components';
 
 export const useWarmUpBrowser = () => {
   React.useEffect(() => {
@@ -40,7 +41,27 @@ export default function Facebook() {
 
   return (
     <View>
-      <Button title="Sign in with Facebook" onPress={onPress} />
+      <Layout style={styles.container}>
+      <KittenButton onPress={onPress} style={styles.button}>
+        Sign in with Facebook
+      </KittenButton>
+    </Layout>
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
+  button: {
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: '#4285F4',
+    color: 'white',
+    borderRadius: 5,
+    borderColor: 'transparent',
+  },
+});

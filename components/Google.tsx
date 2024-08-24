@@ -1,8 +1,10 @@
 import React from 'react'
 import * as WebBrowser from 'expo-web-browser'
-import { View, Button } from 'react-native'
+import { View, Button, StyleSheet } from 'react-native'
 import { useOAuth } from '@clerk/clerk-expo'
-import * as Linking from 'expo-linking'
+import * as Linking from 'expo-linking';
+import { Layout, Button as KittenButton } from '@ui-kitten/components';
+import { colors } from '@/theme/colors';
 
 export const useWarmUpBrowser = () => {
   React.useEffect(() => {
@@ -40,8 +42,29 @@ const Google = () => {
 
   return (
     <View>
-      <Button title="Sign in with Google" onPress={onPress} />
+      <Layout style={styles.container}>
+      <KittenButton onPress={onPress} style={styles.button}>
+        Sign in with Google
+      </KittenButton>
+    </Layout>
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
+  button: {
+    width: '100%',
+    marginVertical: 10,
+    backgroundColor: colors.drawerColor,
+    color: 'white',
+    borderRadius: 5,
+    borderColor: 'transparent',
+  },
+});
+
 export default Google
