@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Input, Button as KittenButton, Text as KittenText, Layout } from '@ui-kitten/components';
 import { useSignUp } from '@clerk/clerk-expo';
 import { Link, useRouter } from 'expo-router';
@@ -58,7 +58,6 @@ export default function SignUpScreen() {
   return (
     <Layout style={styles.container}>
       <KittenText style={styles.title}>Sign Up</KittenText>
-      <Image source={require('../../assets/images/logo.png')} resizeMode='center' style={styles.logo} />
       {!pendingVerification ? (
         <>
           <Input
@@ -116,12 +115,6 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 20,
     textAlign: 'center',
-  },
-  logo: {
-    width: "100%",
-    height: undefined,
-    aspectRatio: 16 / 9,
-    marginBottom: 10
   },
   title: {
     color: 'black',
