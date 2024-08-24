@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { Input, Button as KittenButton, Text as KittenText, Layout } from '@ui-kitten/components';
 import { useSignIn } from '@clerk/clerk-expo';
 import { Link, useRouter } from 'expo-router';
@@ -39,6 +39,8 @@ export default function SignInScreen() {
 
   return (
     <Layout style={styles.container}>
+      <KittenText style={styles.title}>Sign In</KittenText>
+      <Image source={require('../../assets/images/logo.png')} resizeMode='center' style={styles.logo} />
       <Input
         autoCapitalize="none"
         value={emailAddress}
@@ -83,4 +85,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
   },
+  logo: {
+    width: "100%",
+    height: undefined,
+    aspectRatio: 16 / 9,
+    marginBottom: 5
+  },
+  title: {
+    color: 'black',
+    fontSize: 26,
+    fontWeight: "bold",
+    letterSpacing: 1
+},
 });
